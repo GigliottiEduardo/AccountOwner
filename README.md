@@ -1,2 +1,2 @@
-# AccountOwner-Project
-Projeto desenvolvido no componente de programação WEB3, envolvendo a criação de uma API Net.6 com Angular, para gerenciamento de clientes e contas.
+# AccountOwner-3DSB
+Projeto desenvolvido no componente de Programação WEB III, envolvendo a criação de uma API Net.6 com Angular, para gerenciamento de clientes e contas.
