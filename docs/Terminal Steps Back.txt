@@ -10,28 +10,27 @@ dotnet new webapi --name AccountOwnerServer -f net6.0 -lang "C#"
 dotnet sln add AccountOwnerServer\AccountOwnerServer.csproj
 
 /* Estando na pasta backend */
-/* Cria o projeto de biblioteca de Classes para interfaces */
+/* Cria o projeto de biblioteca de Classes para interfaces*/
 dotnet new classlib --name Contracts -f net6.0
 
-/* Adicionar o projeto na solução */
-dotnet sln add Contracts/Contracts.csproj
+/* Adicionar o projeto na solução*/
+dotnet sln add Contracts\Contracts.csproj
 
 /* Adicionar o projeto do Serviço de Log */
 dotnet new classlib --name LoggerService -f net6.0
 
 /* Adicionar o projeto na solução */
-dotnet sln add LoggerService/LoggerService.csproj
+dotnet sln add LoggerService\LoggerService.csproj
 
 /* Adicionar referência do Contracts no LoggerService */
-dotnet add LoggerService/LoggerService.csproj reference Contracts/Contracts.csproj
+dotnet add LoggerService\LoggerService.csproj reference Contracts\Contracts.csproj
 
-/* Adicionar referência do LoggerService na API */
-dotnet add AccountOwnerServer/AccountOwnerServer.csproj reference LoggerService/LoggerService.csproj
+/* Adicionar referência do LoggerService na API*/
+dotnet add AccountOwnerServer\AccountOwnerServer.csproj reference LoggerService\LoggerService.csproj
 
-/* Entrar na pasta no projeto LoggerService */
+/* Entrar na pasta do projeto LoggerService */
 cd LoggerService
 
 /* Instalar o pacote NLog - Nuget */
 dotnet add package NLog.Extensions.Logging --version 5.2.1
-
 
