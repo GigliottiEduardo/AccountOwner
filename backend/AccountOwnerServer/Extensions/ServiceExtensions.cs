@@ -2,6 +2,7 @@ using Contracts;
 using Entities;
 using LoggerService;
 using Microsoft.EntityFrameworkCore;    
+using Repository;
 
 namespace AccountOwnerServer.Extensions;
 
@@ -40,5 +41,9 @@ public static class ServiceExtensions
     var serverVersion = ServerVersion.AutoDetect(connectionString);
     services.AddDbContext<RepositoryContext>(o => 
         o.UseMySql(connectionString, serverVersion));
+    }
+    public static void ConfigureRepositoryWrapper(this IServiceCollection services)
+    {
+        services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
     }
 }

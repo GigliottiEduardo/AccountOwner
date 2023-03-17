@@ -6,8 +6,8 @@ namespace Entities.Models
     [Table("owner")]
     public class Owner
     {
-        [Key]
-        public Guid OwnerId { get; set; }
+        [Column("ownerId")]
+        public Guid Id { get; set; }
 
         [Required]
         [StringLength(60)]
