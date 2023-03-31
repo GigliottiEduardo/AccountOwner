@@ -29,4 +29,7 @@ export class OwnerRepositoryService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
   }
+  public getOwner = (route: string) => {
+    return this.http.get<Owner>(this.createCompleteRoute(route, this.envUrl.urlAddress));
+  }
 }

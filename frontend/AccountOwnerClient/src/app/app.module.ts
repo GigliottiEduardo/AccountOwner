@@ -9,6 +9,8 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
+import { OwnerModule } from './owner/owner.module';
+import { InternalServerComponent } from './error-pages/internal-server/internal-server.component';
 
 
 @NgModule({
@@ -16,14 +18,16 @@ import { NotFoundComponent } from './error-pages/not-found/not-found.component';
     AppComponent,
     HomeComponent,
     MenuComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    InternalServerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    OwnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
