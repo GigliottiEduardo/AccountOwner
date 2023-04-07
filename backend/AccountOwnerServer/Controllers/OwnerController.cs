@@ -37,7 +37,7 @@ public class OwnerController : ControllerBase
     }
 
     [
-    HttpGet("{id}")]
+    HttpGet("{id}/account")]
     public IActionResult GetOwnerById(Guid id)
     {
         try
