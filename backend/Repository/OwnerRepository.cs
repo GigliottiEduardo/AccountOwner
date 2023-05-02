@@ -5,39 +5,39 @@ namespace Repository;
 using Microsoft.EntityFrameworkCore;
 public class OwnerRepository : RepositoryBase<Owner>, IOwnerRepository
 {
-public OwnerRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-{
-}
-
+    public OwnerRepository(RepositoryContext repositoryContext) : base(repositoryContext)
+    { }
     public IEnumerable<Owner> GetAllOwners()
     {
         return FindAll()
-            .OrderBy(ow => ow.Name)
-            .ToList();
+        .OrderBy(ow => ow.Name)
+        .ToList();
     }
-
     public Owner GetOwnerById(Guid ownerId)
     {
         return FindByCondition(owner => owner.Id.Equals(ownerId))
-                .FirstOrDefault();
+        .FirstOrDefault();
     }
+
     public Owner GetOwnerWithDetails(Guid ownerId)
     {
-    return FindByCondition(owner => owner.Id.Equals(ownerId))
+        return FindByCondition(owner => owner.Id.Equals(ownerId))
         .Include(ac => ac.Accounts)
         .FirstOrDefault();
     }
 
     public void CreateOwner(Owner owner)
-{
-Create(owner);
-}
-public void UpdateOwner(Owner owner)
-{
-Update(owner);
-}
-public void DeleteOwner(Owner owner)
-{
-Delete(owner);
-}
+    {
+        Create(owner);
+    }
+
+    public void UpdateOwner(Owner owner)
+    {
+        Update(owner);
+    }
+    public void DeleteOwner(Owner owner)
+    {
+        Delete(owner);
+    }
+
 }

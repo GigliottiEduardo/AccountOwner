@@ -1,7 +1,7 @@
 using AutoMapper;
 using Contracts;
-using Entities.Models;
 using Entities.DataTransferObjects;
+using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AccountOwnerServer.Controllers;
@@ -12,14 +12,14 @@ public class OwnerController : ControllerBase
     private ILoggerManager _logger;
     private IRepositoryWrapper _repository;
     private IMapper _mapper;
-    public OwnerController(ILoggerManager logger, IRepositoryWrapper repository, IMapper mapper)
+    public OwnerController(ILoggerManager logger, IRepositoryWrapper repository, IMapper
+    mapper)
     {
         _logger = logger;
         _repository = repository;
         _mapper = mapper;
     }
-    [
-    HttpGet]
+    [HttpGet]
     public IActionResult GetAllOwners()
     {
         try
@@ -36,8 +36,7 @@ public class OwnerController : ControllerBase
         }
     }
 
-    [
-    HttpGet("{id}/account")]
+    [HttpGet("{id}", Name = "OwnerById")]
     public IActionResult GetOwnerById(Guid id)
     {
         try
@@ -61,8 +60,8 @@ public class OwnerController : ControllerBase
             return StatusCode(500, "Erro Interno do Servidor");
         }
     }
-    [
-    HttpGet("{id}", Name = "OwnerById")]
+
+    [HttpGet("{id}/account")]
     public IActionResult GetOwnerWithDetails(Guid id)
     {
         try
@@ -86,7 +85,9 @@ public class OwnerController : ControllerBase
             return StatusCode(500, "Erro Interno do Servidor");
         }
     }
-    [HttpPost]
+
+    [
+HttpPost]
     public IActionResult CreateOwner([FromBody] OwnerForCreationDto owner)
     {
         try
@@ -113,8 +114,9 @@ public class OwnerController : ControllerBase
             return StatusCode(500, "Erro Interno do Servidor");
         }
     }
-    [
-    HttpPut("{id}")]
+
+
+    [HttpPut("{id}")]
     public IActionResult UpdateOwner(Guid id, [FromBody] OwnerForUpdateDto owner)
     {
         try
@@ -147,7 +149,8 @@ public class OwnerController : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
+    [
+    HttpDelete("{id}")]
     public IActionResult DeleteOwner(Guid id)
     {
         try
@@ -166,8 +169,8 @@ public class OwnerController : ControllerBase
 
             _repository.Owner.DeleteOwner(owner);
             _repository.Save();
-
             return NoContent();
+
         }
         catch (Exception ex)
         {
@@ -175,6 +178,5 @@ public class OwnerController : ControllerBase
             return StatusCode(500, "Erro Interno do Servidor");
         }
     }
-
 }
 
