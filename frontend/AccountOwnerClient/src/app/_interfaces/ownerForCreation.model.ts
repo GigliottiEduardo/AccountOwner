@@ -1,5 +1,5 @@
-export interface OwnerForCreation {
-  name: string;
-  dateOfBirth: string;
-  address: string;
+export interface ownerForCreation{
+    name:string;
+    dateOfBirth:string;
+    address:string;
 }

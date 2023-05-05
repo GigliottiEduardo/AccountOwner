@@ -1,50 +1,50 @@
 using Contracts;
-using Entities;
 using LoggerService;
-using Microsoft.EntityFrameworkCore;
+using Entities;
 using Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccountOwnerServer.Extensions;
 
-public static class ServiceExtensions
-{
-    public static void ConfigureCors(this IServiceCollection services)
+    public static class ServiceExtensions
     {
-        services.AddCors(options =>
+        public static void ConfigureCors(this IServiceCollection services)
         {
-            options.AddPolicy("CorsPolicy",
-                builder => builder
-                .AllowAnyOrigin() // WithOrigins("dominio")
-                .AllowAnyMethod() // WithMethods("GET", "POST")
-                .AllowAnyHeader() // WithHeaders("accept", "content-header")
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                    .AllowAnyOrigin()  // WithOrigins("dominio")
+                    .AllowAnyMethod()  //WithMethods("GET", "SET")
+                    .AllowAnyHeader()  //WithHeaders("accept", "content-type")
+                );
+            });
+        }
+
+        public static void ConfigureIISIntegration(this IServiceCollection services)
+        {
+            services.Configure<IISOptions>(options => {
+                
+            });
+        }
+        public static void ConfigureLoggerService(this IServiceCollection services)
+        {
+            services.AddSingleton<ILoggerManager , LoggerManager>();
+
+        }
+
+        public static void ConfigureMySqlContext(this IServiceCollection services, IConfiguration config)
+        {
+            var conn = config["mysqlconnection:connectionString"];
+            var serverVersion = ServerVersion.AutoDetect(conn);
+            services.AddDbContext<RepositoryContext>(
+                o => o.UseMySql(conn, serverVersion)
             );
-        });
-    }
+        }
 
-    public static void configureIISIntegration(this IServiceCollection services)
-    {
-        services.Configure<IISOptions>(options =>
+        public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
-
-        });
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+        }
 
     }
-    public static void ConfigureLoggerService(this IServiceCollection services)
-    {
-        services.AddSingleton<ILoggerManager, LoggerManager>();
-    }
-
-    public static void ConfigureMySqlContext(this IServiceCollection services, IConfiguration config)
-    {
-        var connectionString = config["mysqlconnection:connectionString"];
-        var serverVersion = ServerVersion.AutoDetect(connectionString);
-        services.AddDbContext<RepositoryContext>(o =>
-        o.UseMySql(connectionString, serverVersion));
-    }
-
-    public static void ConfigureRepositoryWrapper(this IServiceCollection services)
-    {
-        services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-    }
-
-}

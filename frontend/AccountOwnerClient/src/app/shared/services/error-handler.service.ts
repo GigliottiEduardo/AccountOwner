@@ -1,5 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ErrorModalComponent } from '../modals/error-modal/error-modal.component';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
@@ -16,25 +16,20 @@ export class ErrorHandlerService {
     if (error.status === 500) {
       this.handle500Error(error);
     }
-    if (error.status === 400) {
-      this.handle400Error(error);
-    } else {
+    else if (error.status === 404) {
+      this.handle404Error(error)
+    }
+    else {
       this.handleOtherError(error);
     }
   }
-
   private handle500Error = (error: HttpErrorResponse) => {
     this.createErrorMessage(error);
     this.router.navigate(['/500']);
   }
-
-  private handle400Error = (error: HttpErrorResponse) => {
+  private handle404Error = (error: HttpErrorResponse) => {
     this.createErrorMessage(error);
     this.router.navigate(['/404']);
-  }
-
-  private handleOtherError = (error: HttpErrorResponse) => {
-    this.createErrorMessage(error); //TODO: this will be fixed later
   }
 
   private handleOtherError = (error: HttpErrorResponse) => {

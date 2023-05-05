@@ -1,40 +1,44 @@
 using Contracts;
 using Entities;
-namespace Repository;
 
-public class RepositoryWrapper : IRepositoryWrapper
+namespace Repository 
 {
-    private RepositoryContext _repoContext;
-    private IOwnerRepository _owner;
-    private IAccountRepository _account;
-    public IOwnerRepository Owner
+    public class RepositoryWrapper : IRepositoryWrapper
     {
-        get
+        private RepositoryContext _repoContext;
+        private IOwnerRepository _owner;
+        private IAccountRepository _account;  
+
+        public IOwnerRepository Owner 
         {
-            if (_owner == null)
+            get 
             {
-                _owner = new OwnerRepository(_repoContext);
+                if (_owner == null)
+                {
+                    _owner = new OwnerRepository(_repoContext);
+                }
+                return _owner;
             }
-            return _owner;
-        }
-    }
-    public IAccountRepository Account
-    {
-        get
+        }  
+
+        public IAccountRepository Account
         {
-            if (_account == null)
+            get 
             {
-                _account = new AccountRepository(_repoContext);
+                if(_account == null)
+                {
+                    _account = new AccountRepository(_repoContext);
+                }
+                return _account;
             }
-            return _account;
         }
-    }
-    public RepositoryWrapper(RepositoryContext repositoryContext)
-    {
-        _repoContext = repositoryContext;
-    }
-    public void Save()
-    {
-        _repoContext.SaveChanges();
+        public RepositoryWrapper(RepositoryContext repositoryContext)
+        {
+            _repoContext = repositoryContext;
+        }
+        public void Save()
+        {
+            _repoContext.SaveChanges();
+        }
     }
 }

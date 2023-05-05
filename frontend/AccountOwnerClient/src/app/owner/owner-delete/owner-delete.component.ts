@@ -6,11 +6,13 @@ import { Owner } from 'src/app/_interfaces/owner.model';
 import { SuccessModalComponent } from 'src/app/shared/modals/success-modal/success-modal.component';
 import { ErrorHandlerService } from 'src/app/shared/services/error-handler.service';
 import { OwnerRepositoryService } from 'src/app/shared/services/owner-repository.service';
+
 @Component({
   selector: 'app-owner-delete',
   templateUrl: './owner-delete.component.html',
   styleUrls: ['./owner-delete.component.css']
 })
+
 export class OwnerDeleteComponent implements OnInit {
   owner: Owner;
   bsModalRef?: BsModalRef;
@@ -18,9 +20,11 @@ export class OwnerDeleteComponent implements OnInit {
     ErrorHandlerService,
     private router: Router, private activeRoute: ActivatedRoute, private modal:
       BsModalService) { }
+
   ngOnInit(): void {
     this.getOwnerById();
   }
+
   private getOwnerById = () => {
     const ownerId: string = this.activeRoute.snapshot.params['id'];
     const apiUri: string = `api/owner/${ownerId}`;
@@ -30,9 +34,11 @@ export class OwnerDeleteComponent implements OnInit {
         error: (err: HttpErrorResponse) => this.errorHandler.handleError(err)
       })
   }
+
   redirectToOwnerList = () => {
     this.router.navigate(['/owner/list']);
   }
+  
   deleteOwner = () => {
     const deleteUri: string = `api/owner/${this.owner.id}`;
     this.repository.deleteOwner(deleteUri)

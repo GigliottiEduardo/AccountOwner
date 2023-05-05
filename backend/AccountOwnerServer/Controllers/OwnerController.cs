@@ -1,33 +1,35 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace AccountOwnerServer.Controllers;
-[Route("api/owner")]
+
 [ApiController]
+[Route("api/owner")]
 public class OwnerController : ControllerBase
 {
     private ILoggerManager _logger;
     private IRepositoryWrapper _repository;
     private IMapper _mapper;
-    public OwnerController(ILoggerManager logger, IRepositoryWrapper repository, IMapper
-    mapper)
+    public OwnerController(ILoggerManager logger, IRepositoryWrapper repository, IMapper mapper)
     {
         _logger = logger;
         _repository = repository;
         _mapper = mapper;
     }
+
     [HttpGet]
     public IActionResult GetAllOwners()
     {
         try
         {
             var owners = _repository.Owner.GetAllOwners();
-            _logger.LogInfo($"Retornando todos os owners do banco de dados.");
-            var ownersResult = _mapper.Map<IEnumerable<OwnerDto>>(owners);
-            return Ok(ownersResult);
+            _logger.LogInfo($"Retornando todos os owners do banco de dados");
+
+            var ownerResult = _mapper.Map<IEnumerable<OwnerDto>>(owners);
+            return Ok(ownerResult);
         }
         catch (Exception ex)
         {
@@ -42,14 +44,16 @@ public class OwnerController : ControllerBase
         try
         {
             var owner = _repository.Owner.GetOwnerById(id);
+
             if (owner is null)
             {
-                _logger.LogError($"Owner com Id: {id}, não encontrado.");
+                _logger.LogError($"Owner com Id: {id}, não encontrado;");
                 return NotFound();
             }
             else
             {
                 _logger.LogInfo($"Retornando o owner com Id: {id}");
+
                 var ownerResult = _mapper.Map<OwnerDto>(owner);
                 return Ok(ownerResult);
             }
@@ -86,8 +90,7 @@ public class OwnerController : ControllerBase
         }
     }
 
-    [
-HttpPost]
+    [HttpPost]
     public IActionResult CreateOwner([FromBody] OwnerForCreationDto owner)
     {
         try
@@ -114,7 +117,6 @@ HttpPost]
             return StatusCode(500, "Erro Interno do Servidor");
         }
     }
-
 
     [HttpPut("{id}")]
     public IActionResult UpdateOwner(Guid id, [FromBody] OwnerForUpdateDto owner)
@@ -148,9 +150,7 @@ HttpPost]
             return StatusCode(500, "Erro Interno do Servidor");
         }
     }
-
-    [
-    HttpDelete("{id}")]
+    [HttpDelete("{id}")]
     public IActionResult DeleteOwner(Guid id)
     {
         try
@@ -164,13 +164,11 @@ HttpPost]
             if (_repository.Account.AccountsByOwner(id).Any())
             {
                 _logger.LogError($"O owner com id: {id}, não pode ser excluído, pois possuir contas relacionadas.Exclua as contas primeiro.");
-                return BadRequest("Não é possível excluir o owner. Possui contas relacionadas.Exclua as contas primeiro.");
+            return BadRequest("Não é possível excluir o owner. Possui contas relacionadas.Exclua as contas primeiro.");
             }
-
             _repository.Owner.DeleteOwner(owner);
             _repository.Save();
             return NoContent();
-
         }
         catch (Exception ex)
         {
@@ -179,4 +177,7 @@ HttpPost]
         }
     }
 }
+
+
+
 

@@ -16,13 +16,16 @@ import { OwnerRepositoryService } from 'src/app/shared/services/owner-repository
   styleUrls: ['./owner-update.component.css']
 })
 export class OwnerUpdateComponent implements OnInit {
+
   owner: Owner;
   ownerForm: FormGroup;
   bsModalRef?: BsModalRef;
+
   constructor(private repository: OwnerRepositoryService, private errorHandler:
     ErrorHandlerService,
     private router: Router, private activeRoute: ActivatedRoute, private datePipe: DatePipe,
     private modal: BsModalService) { }
+
   ngOnInit(): void {
     this.ownerForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(60)]),
@@ -46,20 +49,24 @@ export class OwnerUpdateComponent implements OnInit {
         error: (err: HttpErrorResponse) => this.errorHandler.handleError(err)
       })
   }
+
   validateControl = (controlName: string) => {
     if (this.ownerForm.get(controlName).invalid && this.ownerForm.get(controlName).touched)
       return true;
     return false;
   }
+
   hasError = (controlName: string, errorName: string) => {
     if (this.ownerForm.get(controlName).hasError(errorName))
       return true;
     return false;
   }
+
   public updateOwner = (ownerFormValue) => {
     if (this.ownerForm.valid)
       this.executeOwnerUpdate(ownerFormValue);
   }
+
   private executeOwnerUpdate = (ownerFormValue) => {
     const ownerForUpd: OwnerForUpdate = {
       name: ownerFormValue.name,
@@ -83,7 +90,9 @@ export class OwnerUpdateComponent implements OnInit {
         error: (err: HttpErrorResponse) => this.errorHandler.handleError(err)
       })
   }
+  
   public redirectToOwnerList = () => {
     this.router.navigate(['/owner/list']);
   }
+
 }

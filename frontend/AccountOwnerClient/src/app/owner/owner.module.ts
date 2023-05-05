@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { OwnerRoutingModule } from './owner-routing.module';
 import { OwnerListComponent } from './owner-list/owner-list.component';
 import { OwnerDetailsComponent } from './owner-details/owner-details.component';
@@ -10,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { OwnerUpdateComponent } from './owner-update/owner-update.component';
 import { OwnerDeleteComponent } from './owner-delete/owner-delete.component';
+
 @NgModule({
   declarations: [
     OwnerListComponent,
@@ -17,14 +19,14 @@ import { OwnerDeleteComponent } from './owner-delete/owner-delete.component';
     OwnerAccountsComponent,
     OwnerCreateComponent,
     OwnerUpdateComponent,
-    OwnerDeleteComponent,
+    OwnerDeleteComponent
   ],
   imports: [
     CommonModule,
     OwnerRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    BsDatepickerModule.forRoot(),
-  ],
+    BsDatepickerModule.forRoot()
+  ]
 })
-export class OwnerModule {}
+export class OwnerModule { }

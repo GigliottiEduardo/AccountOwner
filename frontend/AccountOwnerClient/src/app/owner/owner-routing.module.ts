@@ -6,6 +6,7 @@ import { OwnerListComponent } from './owner-list/owner-list.component';
 import { OwnerCreateComponent } from './owner-create/owner-create.component';
 import { OwnerUpdateComponent } from './owner-update/owner-update.component';
 import { OwnerDeleteComponent } from './owner-delete/owner-delete.component';
+
 const routes: Routes = [
   { path: 'list', component: OwnerListComponent },
   { path: 'details/:id', component: OwnerDetailsComponent },
@@ -13,8 +14,9 @@ const routes: Routes = [
   { path: 'update/:id', component: OwnerUpdateComponent },
   { path: 'delete/:id', component: OwnerDeleteComponent }
 ];
+
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class OwnerRoutingModule { }
